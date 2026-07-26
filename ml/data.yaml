@@ -1,0 +1,14 @@
+path: D:/projects/Animals Detection/Crops/final_dataset
+
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 5
+
+names:
+  - wildboar
+  - dog
+  - monkey
+  - cattle
+  - goat

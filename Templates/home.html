@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="hero fade-up">
+    <h1>AI-Based Animal Detection</h1>
+    <p>Protect crops using YOLOv8</p>
+    <a href="/detect/" class="btn">Start Detection</a>
+</div>
+
+<!-- FEATURES -->
+<div class="features-section fade-up delay-1">
+    <h2> Key Features</h2>
+
+    <div class="features-grid">
+        <div class="feature-card">Accurate Detection</div>
+        <div class="feature-card">Real-Time Alerts</div>
+        <div class="feature-card">Video Analysis</div>
+        <div class="feature-card"> Smart Alarm</div>
+    </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="steps-section fade-up delay-2">
+    <h2>How It Works</h2>
+
+    <div class="steps-grid">
+        <div class="step-card">Upload Video</div>
+        <div class="step-card">AI Processing</div>
+        <div class="step-card">Detection</div>
+        <div class="step-card">Alert</div>
+    </div>
+</div>
+
+<!-- ANIMALS -->
+<div class="animals-section fade-up delay-3">
+    <h2> Supported Animals</h2>
+
+    <div class="animals-grid">
+        <div class="animal"> Goat</div>
+        <div class="animal"> Cattle</div>
+        <div class="animal"> Dog</div>
+        <div class="animal"> Monkey</div>
+        <div class="animal"> Wild Boar</div>
+    </div>
+</div>
+
+{% endblock %}

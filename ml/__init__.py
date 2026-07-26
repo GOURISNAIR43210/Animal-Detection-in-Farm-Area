@@ -1,0 +1,1 @@
+from ml.detect_video import detect_video_fast

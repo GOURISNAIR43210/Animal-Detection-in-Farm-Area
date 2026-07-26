@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="hero">
+
+
+<!-- TITLE -->
+<h1 class="title"> UPLOAD VIDEOS FOR DETECTION</h1>
+<p class="subtitle">AI-powered Animal Detection using YOLOv8</p>
+
+<!-- FORM -->
+<form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+    {% csrf_token %}
+
+    <div class="upload-container">
+
+        <!-- VIDEO 1 -->
+        <div class="upload-card">
+            <h3> Video 1</h3>
+            <input type="file" name="video1" accept="video/*" required onchange="previewVideo(event, 'preview1')">
+            <video id="preview1" class="preview-video" controls></video>
+        </div>
+
+        <!-- VIDEO 2 -->
+        <div class="upload-card">
+            <h3> Video 2</h3>
+            <input type="file" name="video2" accept="video/*" required onchange="previewVideo(event, 'preview2')">
+            <video id="preview2" class="preview-video" controls></video>
+        </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <button type="submit" class="btn"> Start Detection</button>
+
+</form>
+
+<!-- LOADER -->
+<div id="loader" class="loader">
+     Detecting animals... Please wait
+</div>
+
+<!-- TIPS -->
+<div class="info-box">
+    <h3> Tips for Better Detection</h3>
+    <ul>
+        <li> Use clear daylight videos</li>
+        <li> Ensure animal is visible and not too far</li>
+        <li> Avoid heavy motion blur</li>
+        <li> Use stable camera if possible</li>
+    </ul>
+</div>
+
+
+</div>
+
+<!-- ================= CSS ================= -->
+
+<style>
+
+/* MAIN HERO */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 80vh;
+    text-align: center;
+    padding: 20px;
+}
+
+/* TITLE */
+.title {
+    font-size: 60px;
+    color: #00ffcc;
+    text-shadow: 0 0 20px #00ffcc;
+}
+
+.subtitle {
+    margin-bottom: 40px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* UPLOAD GRID */
+.upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.upload-card {
+    width: 320px;
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 25px rgba(0,255,204,0.4);
+
+    transition: 0.4s;
+}
+
+.upload-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* FILE INPUT */
+input[type="file"] {
+    margin-top: 15px;
+    padding: 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/* VIDEO PREVIEW */
+.preview-video {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
+    display: none;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 40px;
+    padding: 15px 35px;
+    font-size: 18px;
+
+    background: #00ffcc;
+    color: black;
+
+    border: none;
+    border-radius: 30px;
+
+    cursor: pointer;
+    transition: 0.3s;
+
+    box-shadow: 0 0 20px #00ffcc;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+/* LOADER */
+.loader {
+    display: none;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #00ffcc;
+    animation: pulse 1.5s infinite;
+}
+
+/* INFO BOX */
+.info-box {
+    margin-top: 50px;
+    padding: 25px;
+
+    width: 500px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 0 15px rgba(0,255,204,0.3);
+}
+
+.info-box ul {
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* ANIMATION */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    .title {
+        font-size: 35px;
+    }
+
+    .upload-card {
+        width: 90%;
+    }
+
+    .info-box {
+        width: 90%;
+    }
+}
+
+</style>
+
+<!-- ================= JS ================= -->
+
+<script>
+
+/* VIDEO PREVIEW */
+function previewVideo(event, id) {
+    const file = event.target.files[0];
+    const video = document.getElementById(id);
+
+    if (file) {
+        video.src = URL.createObjectURL(file);
+        video.style.display = "block";
+    }
+}
+
+/* LOADER */
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+
+</script>
+
+{% endblock %}

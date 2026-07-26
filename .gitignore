@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+# Environment variables
+.env
+Crops/.env
+venv/
+.venv/
+env/
+
+# Django
+db.sqlite3
+media/
+
+# ML / YOLO
+dataset/
+runs/
+test_images/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

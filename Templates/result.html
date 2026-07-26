@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="result-container">
+
+<!-- TITLE -->
+<h1 class="alert-title">ANIMAL DETECTED</h1>
+
+<!-- WARNING -->
+<div id="warning" class="warning-box"></div>
+
+<!-- VIDEOS -->
+<div class="video-container">
+
+    <div class="video-card">
+        <video id="video1" controls></video>
+        <div id="label1" class="label blink"></div>
+    </div>
+
+    <div class="video-card">
+        <video id="video2" controls></video>
+        <div id="label2" class="label blink"></div>
+    </div>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="alarmAudio"></audio>
+
+<!-- STOP BUTTON -->
+<div style="text-align:center; margin-top:20px;">
+    <button onclick="stopAlarm()" 
+            style="background:#00ffae; color:black; padding:10px 25px; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">
+        STOP SOUND
+    </button>
+</div>
+</div>
+
+<script>
+
+const id = "{{ id }}";
+
+let sounds = [];
+let current = 0;
+let interval = null;
+let timeout = null;
+
+// ================= FETCH RESULT =================
+fetch(`/get-result/${id}/`)
+.then(res => res.json())
+.then(data => {
+
+    const results = data.animals || [];
+    const videos = data.videos || [];
+
+    if (videos[0]) document.getElementById("video1").src = videos[0];
+    if (videos[1]) document.getElementById("video2").src = videos[1];
+
+    // LABELS
+    document.getElementById("label1").innerText =
+        results[0] || "No animal detected";
+
+    document.getElementById("label2").innerText =
+        results[1] || "No animal detected";
+
+    const detected = results.filter(a => a !== "No animal detected" && a !== "Error");
+
+    if(detected.length > 0){
+
+        document.getElementById("warning").innerText =
+            `WARNING: ${detected.join(", ").toUpperCase()} DETECTED`;
+
+        // LOAD SOUNDS
+        sounds = detected.map(a => `/static/sounds/${a}.mp3`);
+
+        // START ALARM
+        startAlarm();
+
+    } else {
+        document.getElementById("warning").innerText =
+            "NO THREAT DETECTED";
+    }
+
+});
+
+
+// ================= START ALARM =================
+function startAlarm(){
+
+    if(sounds.length === 0) return;
+
+    const audio = document.getElementById("alarmAudio");
+
+    // clear previous
+    if(interval){
+        clearInterval(interval);
+        interval = null;
+    }
+
+    if(timeout){
+        clearTimeout(timeout);
+        timeout = null;
+    }
+
+    current = 0;
+    audio.src = sounds[current];
+
+    // ▶️ PLAY FIRST SOUND
+    audio.play().catch(()=>{
+        document.body.addEventListener("click", () => {
+            audio.play();
+        }, { once: true });
+    });
+
+    // 🔁 LOOP SOUNDS EVERY 4 SEC
+    interval = setInterval(()=>{
+        current = (current + 1) % sounds.length;
+        audio.src = sounds[current];
+        audio.play().catch(()=>{});
+    }, 4000);
+
+    // ⏱️ AUTO STOP AFTER 20 SEC
+    timeout = setTimeout(()=>{
+        stopAlarm();
+    }, 20000);
+}
+
+
+// ================= STOP ALARM =================
+function stopAlarm(){
+
+    const audio = document.getElementById("alarmAudio");
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    if(interval){
+        clearInterval(interval);
+        interval = null;
+    }
+
+    if(timeout){
+        clearTimeout(timeout);
+        timeout = null;
+    }
+}
+
+</script>
+
+{% endblock %}
