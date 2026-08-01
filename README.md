@@ -30,7 +30,6 @@ The application combines **Computer Vision**, **Deep Learning**, and **Web Devel
 
 - 🐗 Wild Boar
 - 🐄 Cattle
-- 🐐 Goat
 - 🐕 Dog
 - 🐒 Monkey
 
@@ -267,19 +266,22 @@ http://127.0.0.1:8000/
 
 ### Home Page
 
-_Add screenshot here_
+<img width="887" height="380" alt="image" src="https://github.com/user-attachments/assets/1a50e3a1-3904-49a7-b462-eca3b2cb7179" />
+
 
 ---
 
 ### Upload Page
 
-_Add screenshot here_
+<img width="925" height="413" alt="Screenshot 2026-08-01 223452" src="https://github.com/user-attachments/assets/8398e6e6-0f2f-45ca-8f2f-1102841a098d" />
+
 
 ---
 
 ### Detection Result
 
-_Add screenshot here_
+<img width="882" height="411" alt="image" src="https://github.com/user-attachments/assets/e6531c0c-74ce-424a-ba7e-f9a9bcee51b0" />
+
 
 ---
 
