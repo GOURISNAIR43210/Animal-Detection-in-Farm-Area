@@ -12,11 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==============================
 # SECURITY
 # ==============================
-SECRET_KEY = 'django-insecure-#f^8@lkxis(59+_d05f2t#w0thvzzb_v8gp1wz1addv_f$b2@d'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # ==============================
@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # ==============================
 # MEDIA FILES (🔥 VERY IMPORTANT)
 # ==============================
